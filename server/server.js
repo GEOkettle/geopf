@@ -6,7 +6,8 @@ const { Pool } = require('pg'); // postgresql
 
 require('dotenv').config(); // enviroment variable
 const {
-  CLIENT_PORT,
+  DEV_ADDR,
+  PRD_ADDR,
   SERVER_PORT,
   NODE_ENV,
   MARIA_HOST,
