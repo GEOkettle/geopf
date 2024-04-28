@@ -20,8 +20,9 @@ const {
   PG_SCHEMA,
   PG_USER,
   PG_PW
-  } = process.env
-app.use(cors({origin: "http://localhost:"+CLIENT_PORT, credentials: true}))
+} = process.env
+//환경마다 다른거쓸수 있도록 조절하자
+app.use(cors({ origin: `http://localhost:${PRD_ADDR}`, credentials: true }));
 app.set("trust proxy", 1);
 
 app.use(express.urlencoded( {extended : false } ));// bodyparser
