@@ -9,14 +9,17 @@ lerna-debug.log*
 
 node_modules
 
-pluigins
+plugins
 public
 src
+.env
+.eslintrc.cjs
 index.html
 package.json
 pacakge-lock.json
 README.md 
 vite.config.js
+
 *.local
 
 # Editor directories and files
@@ -30,5 +33,4 @@ vite.config.js
 *.sln
 *.sw?
 
-.env
-*env
+
