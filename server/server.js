@@ -24,6 +24,19 @@ const {
 } = process.env
 //환경마다 다른거쓸수 있도록 조절하자.
 app.options('*', cors());
+const whitelist = ['http://220.84.230.188', /\.220\.84\.230\.188$/];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.some((allowedOrigin) => origin.match(allowedOrigin))) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(cors({ origin: PRD_ADDR, credentials: true }));
 app.set("trust proxy", 1);
 
