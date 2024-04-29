@@ -24,7 +24,15 @@ const {
 } = process.env
 //환경마다 다른거쓸수 있도록 조절하자.
 app.options('*', cors());
-const whitelist = ['http://220.84.230.188','http://localhost', /\.220\.84\.230\.188$/];
+if (process.env.NODE_ENV === 'dev') { 
+  const whitelist = [`${process.env.DEV_ADDR}`,];
+  
+}
+
+if (process.env.NODE_ENV === 'prd') { 
+  const whitelist = [`${process.env.PRD_ADDR}`, `${process.env.PRD_ADDR2}`];
+
+}
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin) {
@@ -85,8 +93,16 @@ app.get('/geopf', async (req, res) => {
     } else {
       throw new Error('디비 접속에 실패하였습니다.');
     }
-    
-    res.status(200).send('홈 페이지입니다.');
+    if (process.env.NODE_ENV === 'prd') {
+      // Set static folder
+      app.use(express.static('client/dist'));
+
+      // index.html for all page routes
+      app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '../', 'client', 'dist', 'index.html'));
+      });
+    }
+    // res.status(200).send('홈 페이지입니다.');
   } catch (error) {
     console.error('데이터베이스 연결 오류:', error.message);
     res.status(500).send('서버 내부 오류');
@@ -100,6 +116,8 @@ app.get('/geopf', async (req, res) => {
 // app.get('/b', (req, res) => {
 //   res.send('A 페이지입니다.');
 // });
+// Serve static assets if in production
+
 
 
 // 상위에 명시된 경로가 아닌 경로는 다 아래로 탐
