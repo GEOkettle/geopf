@@ -49,7 +49,7 @@ const postgresPool = new Pool({
 
 
 
-app.get('/', async (req, res) => {
+app.get('/geopf', async (req, res) => {
   let mariaConn;
   let pgConn;
   try {
