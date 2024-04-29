@@ -96,13 +96,10 @@ app.get('/geopf', async (req, res) => {
     if (process.env.NODE_ENV === 'prd') {
       // Set static folder
       app.use(express.static('client/dist'));
-
-      // index.html for all page routes
-      app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '../', 'client', 'dist', 'index.html'));
-      });
+      // res.sendFile(path.resolve(__dirname, '../', 'client', 'dist', 'index.html'));
+      res.status(200).send('홈 페이지입니다.');
+    
     }
-    // res.status(200).send('홈 페이지입니다.');
   } catch (error) {
     console.error('데이터베이스 연결 오류:', error.message);
     res.status(500).send('서버 내부 오류');
