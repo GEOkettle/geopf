@@ -93,19 +93,25 @@ app.get('/geopf', async (req, res) => {
     } else {
       throw new Error('디비 접속에 실패하였습니다.');
     }
-    if (process.env.NODE_ENV === 'prd') {
-      // Set static folder
-      app.use(express.static('client/dist'));
-      // res.sendFile(path.resolve(__dirname, '../', 'client', 'dist', 'index.html'));
-      res.status(200).send('홈 페이지입니다.');
-    
-    }
+   
+    res.status(200).send('홈 페이지입니다.');
   } catch (error) {
     console.error('데이터베이스 연결 오류:', error.message);
     res.status(500).send('서버 내부 오류');
   }
 });
 
+//A
+if (process.env.NODE_ENV === "prd") {
+
+  // Set static folder
+  app.use(express.static("client/dist"));
+
+  // index.html for all page routes
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../',"client", "dist", "index.html"));
+  });
+}
 //  작업할 라우터들
 //const aPage = require('./routes/api/a)
 // app.use('/a', aPage);
@@ -116,25 +122,25 @@ app.get('/geopf', async (req, res) => {
 // Serve static assets if in production
 
 
+//B
+// // 상위에 명시된 경로가 아닌 경로는 다 아래로 탐
+// // 404 오류 핸들링
+// app.use((req, res, next) => {
+//   const error = new Error('요청한 페이지를 찾을 수 없습니다.');
+//   error.status = 404;
+//   next(error); 
+// });
 
-// 상위에 명시된 경로가 아닌 경로는 다 아래로 탐
-// 404 오류 핸들링
-app.use((req, res, next) => {
-  const error = new Error('요청한 페이지를 찾을 수 없습니다.');
-  error.status = 404;
-  next(error); 
-});
-
-// 오류 처리 미들웨어
-app.use((err, req, res, next) => {
-  // 클라이언트 오류인 경우
-  if (err.status >= 400 && err.status < 500) {
-    res.status(err.status).send(err.message || '잘못된 요청입니다.');
-  } else {
-    // 서버 오류인 경우
-    res.status(err.status || 500).send(err.message || '서버 내부 오류');
-  }
-});
+// // 오류 처리 미들웨어
+// app.use((err, req, res, next) => {
+//   // 클라이언트 오류인 경우
+//   if (err.status >= 400 && err.status < 500) {
+//     res.status(err.status).send(err.message || '잘못된 요청입니다.');
+//   } else {
+//     // 서버 오류인 경우
+//     res.status(err.status || 500).send(err.message || '서버 내부 오류');
+//   }
+// });
 
 app.listen(SERVER_PORT, () => {
   console.log('This app is running at http://localhost:' + SERVER_PORT)
