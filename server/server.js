@@ -24,9 +24,15 @@ const {
 } = process.env
 //환경마다 다른거쓸수 있도록 조절하자.
 app.options('*', cors());
-const whitelist = ['http://220.84.230.188', /\.220\.84\.230\.188$/];
+const whitelist = ['http://220.84.230.188','http://localhost:5000', /\.220\.84\.230\.188$/];
 const corsOptions = {
   origin: function (origin, callback) {
+    if (!origin) {
+      // origin이 undefined일 경우 처리
+      callback(null, true);
+      return;
+    }
+
     if (whitelist.some((allowedOrigin) => origin.match(allowedOrigin))) {
       callback(null, true);
     } else {
