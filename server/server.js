@@ -38,6 +38,7 @@ const corsOptions = {
   origin: function (origin, callback) {
     if (!origin) {
       // origin이 undefined일 경우 처리
+      
       callback(null, true);
       return;
     }
@@ -89,8 +90,8 @@ app.get('/geopf', async (req, res) => {
     const pgTest = await pgConn.query(`SELECT * FROM ${PG_SCHEMA}.test`);
 
     if (mariaTest.length >= 0 && pgTest.rows.length >= 0) {
-      console.log(pgTest.rows);
-      console.log(mariaTest);
+      
+  
     } else {
       throw new Error('디비 접속에 실패하였습니다.');
     }
