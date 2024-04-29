@@ -75,6 +75,8 @@ const postgresPool = new Pool({
   port: PG_PORT,
 });
 
+//for build
+const path = require('path');
 
 
 app.get('/geopf', async (req, res) => {
