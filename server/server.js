@@ -23,17 +23,8 @@ const {
   PG_PW
 } = process.env
 //환경마다 다른거쓸수 있도록 조절하자.
-let whitelist = []
+const whitelist = [`${process.env.PRD_ADDR}`, `${process.env.PRD_ADDR2}`, `${process.env.DEV_ADDR}`];
 app.options('*', cors());
-if (process.env.NODE_ENV === 'dev') { 
-  whitelist = [`${process.env.DEV_ADDR}`,];
-  
-}
-
-if (process.env.NODE_ENV === 'prd') { 
-  whitelist = [`${process.env.PRD_ADDR}`, `${process.env.PRD_ADDR2}`];
-
-}
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin) {
