@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 if (process.env.NODE_ENV === 'prd') { 
-  whitelist = [`${process.env.PRD_ADDR}`, `${process.env.PRD_ADDR2}`,'172.0.0.1','192.168.0.38','172.0.1.1'];
+  whitelist = [`${process.env.PRD_ADDR}`, `${process.env.PRD_ADDR2}`];
 
 }
 const corsOptions = {
