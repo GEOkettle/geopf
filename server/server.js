@@ -88,7 +88,7 @@ app.get('/geopf', async (req, res) => {
     pgConn = await postgresPool.connect();
     pgConn.release();
 
-    const mariaTest = await mariaConn.query('SELECT * FROM GEO_TEST');
+    const mariaTest = await mariaConn.query('SELECT * FROM geo_test');
     const pgTest = await pgConn.query(`SELECT * FROM ${PG_SCHEMA}.test`);
 
     if (mariaTest.length >= 0 && pgTest.rows.length >= 0) {

@@ -18,7 +18,7 @@ package.json
 pacakge-lock.json
 README.md 
 vite.config.js
-
+store
 *.local
 
 # Editor directories and files
