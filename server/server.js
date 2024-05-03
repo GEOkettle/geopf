@@ -1,27 +1,15 @@
-const express = require('express'); //web server
+import express from 'express'; //web server
 const app = express(); // express object
-let cors = require('cors'); // cors policy between cient and backend, 사실 지금은 한서버에 앞 뒤 다때려박아서 필요없긴함
-const mariadb = require('mariadb'); // mariadb
-const { Pool } = require('pg'); // postgresql
+import cors from 'cors'; // cors policy between client and backend
+import mariadb from 'mariadb'; // mariadb
+import pg from 'pg';
+import notion from './routes/api/notion.js';
+import dotenv from 'dotenv'; // environment variable
+import path from 'path';
 
-require('dotenv').config(); // enviroment variable
-const {
-  DEV_ADDR,
-  PRD_ADDR,
-  SERVER_PORT,
-  NODE_ENV,
-  MARIA_HOST,
-  MARIA_PORT,
-  MARIA_DB,
-  MARIA_USER,
-  MARIA_PW,
-  PG_HOST,
-  PG_PORT,
-  PG_DB,
-  PG_SCHEMA,
-  PG_USER,
-  PG_PW
-} = process.env
+
+dotenv.config(); // environment variable
+const { DEV_ADDR, PRD_ADDR, SERVER_PORT, NODE_ENV, MARIA_HOST, MARIA_PORT, MARIA_DB, MARIA_USER, MARIA_PW, PG_HOST, PG_PORT, PG_DB, PG_SCHEMA, PG_USER, PG_PW } = process.env;
 //환경마다 다른거쓸수 있도록 조절하자.
 const whitelist = [`${process.env.PRD_ADDR}`, `${process.env.PRD_ADDR2}`, `${process.env.DEV_ADDR}`];
 app.options('*', cors());
@@ -29,7 +17,7 @@ const corsOptions = {
   origin: function (origin, callback) {
     if (!origin) {
       // origin이 undefined일 경우 처리
-      
+
       callback(null, true);
       return;
     }
@@ -44,9 +32,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.set("trust proxy", 1);
+app.set('trust proxy', 1);
 
-app.use(express.urlencoded( {extended : false } ));// bodyparser
+app.use(express.urlencoded({ extended: false })); // bodyparser
 app.use(express.json()); // bodyparser
 
 // Mariadb 연결 설정
@@ -55,9 +43,10 @@ const mariadbPool = mariadb.createPool({
   port: MARIA_PORT,
   user: MARIA_USER,
   password: MARIA_PW,
-  database: MARIA_DB
+  database: MARIA_DB,
 });
 // PostgreSQL 연결 설정
+const { Pool } = pg;
 const postgresPool = new Pool({
   user: PG_USER,
   host: PG_HOST,
@@ -66,11 +55,8 @@ const postgresPool = new Pool({
   port: PG_PORT,
 });
 
-//for build
-const path = require('path');
 
-
-app.get('/geopf', async (req, res) => {
+app.get('/', async (req, res) => {
   let mariaConn;
   let pgConn;
   try {
@@ -83,12 +69,10 @@ app.get('/geopf', async (req, res) => {
     const pgTest = await pgConn.query(`SELECT * FROM ${PG_SCHEMA}.test`);
 
     if (mariaTest.length >= 0 && pgTest.rows.length >= 0) {
-      
-  
     } else {
       throw new Error('디비 접속에 실패하였습니다.');
     }
-   
+
     res.status(200).send('홈 페이지입니다.');
   } catch (error) {
     console.error('데이터베이스 연결 오류:', error.message);
@@ -96,15 +80,15 @@ app.get('/geopf', async (req, res) => {
   }
 });
 
+app.use('/notion', notion);
 //A
-if (process.env.NODE_ENV === "prd") {
-
+if (process.env.NODE_ENV === 'prd') {
   // Set static folder
-  app.use(express.static("client/dist"));
+  app.use(express.static('client/dist'));
 
   // index.html for all page routes
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../',"client", "dist", "index.html"));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../', 'client', 'dist', 'index.html'));
   });
 }
 //  작업할 라우터들
@@ -116,14 +100,13 @@ if (process.env.NODE_ENV === "prd") {
 // });
 // Serve static assets if in production
 
-
 //B
 // // 상위에 명시된 경로가 아닌 경로는 다 아래로 탐
 // // 404 오류 핸들링
 // app.use((req, res, next) => {
 //   const error = new Error('요청한 페이지를 찾을 수 없습니다.');
 //   error.status = 404;
-//   next(error); 
+//   next(error);
 // });
 
 // // 오류 처리 미들웨어
@@ -137,8 +120,10 @@ if (process.env.NODE_ENV === "prd") {
 //   }
 // });
 
-app.listen(SERVER_PORT, () => {
-  console.log('This app is running at http://localhost:' + SERVER_PORT)
-}).on('error', (err) => { 
-  console.log('Something went wrong' + err.message)
-})
+app
+  .listen(SERVER_PORT, () => {
+    console.log('This app is running at http://localhost:' + SERVER_PORT);
+  })
+  .on('error', (err) => {
+    console.log('Something went wrong' + err.message);
+  });
