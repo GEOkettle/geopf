@@ -14,6 +14,3 @@ router.get('/mainArticle', async (req, res) => {
 });
 
 export default router;
-
-//https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fca5233dc-dd01-4ed3-a416-4bfb6078ac69%2FLogo.png?table=block&id=83fca179-f831-4fd7-84e5-41e3368df6a5&cache=v2
-//https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fca5233dc-dd01-4ed3-a416-4bfb6078ac69%2FLogo.png?table=block&amp;id=83fca179-f831-4fd7-84e5-41e3368df6a5&amp;cache=v2
