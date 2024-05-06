@@ -13,4 +13,20 @@ router.get('/mainArticle', async (req, res) => {
   return res.status(200).json({ recordMap, status: 'success' });
 });
 
+router.get('/pjList', async (req, res) => {
+  const notion = new NotionAPI();
+  //https://furtive-lemming-021.notion.site/2528e3d7315245f799f82e26c552ee71?v=34e80522ec5e48a8b3ead60ddf96def1&pvs=4
+  const recordMap = await notion.getPage('2528e3d7315245f799f82e26c552ee71');
+  return res.status(200).json({ recordMap, status: 'success' });
+});
+
+router.post('/getPost', async (req, res) => {
+
+  const notion = new NotionAPI();
+  const postId = req.body.postId;
+  const recordMap = await notion.getPage(postId);
+  return res.json({ recordMap, status: 'success' });
+});
+
+
 export default router;

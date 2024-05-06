@@ -6,13 +6,12 @@ import pg from 'pg';
 import notion from './routes/api/notion.js';
 import dotenv from 'dotenv'; // environment variable
 import path from 'path';
-
+import cookieParser from "cookie-parser"; // cookie-parser 모듈 import
 
 dotenv.config(); // environment variable
 const { DEV_ADDR, PRD_ADDR, SERVER_PORT, NODE_ENV, MARIA_HOST, MARIA_PORT, MARIA_DB, MARIA_USER, MARIA_PW, PG_HOST, PG_PORT, PG_DB, PG_SCHEMA, PG_USER, PG_PW } = process.env;
 //환경마다 다른거쓸수 있도록 조절하자.
 const whitelist = [`${process.env.PRD_ADDR}`, `${process.env.PRD_ADDR2}`, `${process.env.DEV_ADDR}`];
-app.options('*', cors());
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin) {
@@ -29,6 +28,8 @@ const corsOptions = {
     }
   },
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowHeaders: ['Content_Type','application/json']
 };
 
 app.use(cors(corsOptions));
@@ -36,7 +37,7 @@ app.set('trust proxy', 1);
 
 app.use(express.urlencoded({ extended: false })); // bodyparser
 app.use(express.json()); // bodyparser
-
+app.use(cookieParser());
 // Mariadb 연결 설정
 const mariadbPool = mariadb.createPool({
   host: MARIA_HOST,
