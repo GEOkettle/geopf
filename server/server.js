@@ -152,12 +152,12 @@ app.get('/visitCheck', async (req, res) => {
       } else { 
       result[0].visited = true   
       result[0].visitedIn24 = false   
-      res.cookie('geo_visited_in_24', { maxAge: aDay })
+      res.cookie('geo_visited_in_24', { maxAge: aDay,samesite:true })
       countVisitor();
     }
   } else { 
-    res.cookie('geo_visited', {maxAge: aYear})
-    res.cookie('geo_visited_in_24', { maxAge: aDay })
+    res.cookie('geo_visited', { maxAge: aYear, samesite: true });
+    res.cookie('geo_visited_in_24', { maxAge: aDay, samesite: true });
     countVisitor();
     //db 오늘방문자 ++
     
