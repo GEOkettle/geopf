@@ -1,8 +1,8 @@
-import{r as a,b as l,i as s,j as r,u as t}from"./index-VAp06N-s.js";import{N as d}from"./styles-DG3t0tLS.js";import"./Frame-j0cmcqFo.js";const f=()=>{const[o,c]=a.useState(null),{inApp:n}=l();return a.useEffect(()=>{n&&s.get("/notion/contact").then(e=>{const i=e.data.recordMap;c(i)}).catch(e=>console.error(e))},[n]),r.jsx(r.Fragment,{children:r.jsx(p,{children:r.jsx(x,{children:o?r.jsx(d,{disableHeader:!0,darkMode:!0,recordMap:o,fullPage:!0}):r.jsx("div",{style:{height:"100%",display:"flex",justifyContent:"center",alignItems:"center"},children:r.jsx(u,{})})})})})},p=t.div`
+import{r as a,b as l,i as s,j as r,u as o}from"./index-DepGkgJb.js";import{N as d}from"./styles-5Hc7DNFU.js";import{C as p}from"./code-CTBv1Yaw.js";import"./Frame-r2TyaGsP.js";const C=()=>{const[t,c]=a.useState(null),{inApp:n}=l();return a.useEffect(()=>{n&&s.get("/notion/credit").then(e=>{const i=e.data.recordMap;c(i)}).catch(e=>console.error(e))},[n]),r.jsx(r.Fragment,{children:r.jsx(x,{children:r.jsx(u,{children:t?r.jsx(d,{components:{Code:p},disableHeader:!0,darkMode:!0,recordMap:t,fullPage:!0}):r.jsx("div",{style:{height:"100%",display:"flex",justifyContent:"center",alignItems:"center"},children:r.jsx(b,{})})})})})},x=o.div`
   display: flex;
   height: 90%;
   color: white;
-`,x=t.div`
+`,u=o.div`
   width: 100%;
   padding: 2px;
   overflow-y: scroll;
@@ -16,7 +16,7 @@ import{r as a,b as l,i as s,j as r,u as t}from"./index-VAp06N-s.js";import{N as 
     border-radius: 5px;
     cursor: pointer;
   }
-`,u=t.div`
+`,b=o.div`
   width: 80px;
   height: 40px;
   color: rgba(10, 201, 74, 0.7);
@@ -42,4 +42,4 @@ import{r as a,b as l,i as s,j as r,u as t}from"./index-VAp06N-s.js";import{N as 
       background-size: 120%;
     }
   }
-`;export{f as default};
+`;export{C as default};
