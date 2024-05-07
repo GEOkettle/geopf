@@ -7,7 +7,7 @@ import notion from './routes/api/notion.js';
 import dotenv from 'dotenv'; // environment variable
 import path from 'path';
 import cookieParser from "cookie-parser"; // cookie-parser 모듈 import
-
+import moment from 'moment';
 dotenv.config(); // environment variable
 const { DEV_ADDR, PRD_ADDR, SERVER_PORT, NODE_ENV, MARIA_HOST, MARIA_PORT, MARIA_DB, MARIA_USER, MARIA_PW, PG_HOST, PG_PORT, PG_DB, PG_SCHEMA, PG_USER, PG_PW } = process.env;
 //환경마다 다른거쓸수 있도록 조절하자.
@@ -80,6 +80,97 @@ app.get('/', async (req, res) => {
     res.status(500).send('서버 내부 오류');
   }
 });
+
+app.get('/visitCheck', async (req, res) => { 
+
+  let mariaConn;
+  const cookies = req.cookies
+  const aYear = 365*24*60*60*1000;
+  const aDay = 24*60*60*1000;
+  
+  let result = [{
+    visited: false,
+    visitedIn24: false,
+  }]
+
+  try {
+    mariaConn = await mariadbPool.getConnection();
+    mariaConn.release();
+    if (mariaConn) {
+      console.log("connected to mariaDB")
+    } else {
+      throw new Error('디비 접속에 실패하였습니다.');
+    }
+  } catch (error) {
+    console.error(`Maria DB error occurred: ${error}`)
+    throw new Error('Failed to connect to the database');
+  }
+
+  const countVisitor = async () => { 
+    try {
+      let query = `SELECT * 
+                     FROM GEO_VISITOR
+                     WHERE 1 = 1
+                       AND DATE(COUNT_DATE) = CURDATE();`;
+      const rowCheck = await mariaConn.query(query);
+      const date = moment();
+      const currentDate = date.format('YYYY-MM-DD HH:mm:ss').toString();
+      if (rowCheck && rowCheck.length < 1) { // 해당일 첫 방문자
+        query = `INSERT INTO GEO_VISITOR
+                            ( VISITOR
+                            , COUNT_DATE
+                            , CREATED_AT 
+                            ) VALUES
+                            ( 1
+                            , CURDATE() 
+                            , ?);`;
+        const values=[currentDate]
+        const insCnt = await mariaConn.query(query, values);
+        console.log(insCnt);
+        
+      } else { 
+        query = `UPDATE GEO_VISITOR
+                          SET VISITOR = VISITOR + 1
+                            , UPDATED_AT = ?
+                        WHERE 1 = 1
+                          AND COUNT_DATE = CURDATE()`
+        const values = [currentDate];
+        const updCnt = await mariaConn.query(query, values);
+        console.log(updCnt);
+      }
+    } catch (e) {
+      console.error(`MariaDB error occurred: ${e}`);
+      throw new Error('DB error');
+    }
+  }
+
+  if (cookies && cookies['geo_visited']) {
+
+    if (cookies['geo_visited_in_24']) {
+        result[0].visited = true   
+        result[0].visitedIn24 = true   
+      } else { 
+      result[0].visited = true   
+      result[0].visitedIn24 = false   
+      res.cookie('geo_visited_in_24', { maxAge: aDay })
+      countVisitor();
+    }
+  } else { 
+    res.cookie('geo_visited', {maxAge: aYear})
+    res.cookie('geo_visited_in_24', { maxAge: aDay })
+    countVisitor();
+    //db 오늘방문자 ++
+    
+  }
+  res.status(200).send(result)
+})
+
+app.get('/cookieCheck', async (req, res) => {
+  const cookies = req.cookies;
+  let result = [{visited: false}];
+  if (cookies && cookies['geo_visited']) result[0].visited = true;   
+  res.status(200).send(result);
+})
 
 app.use('/notion', notion);
 //A
