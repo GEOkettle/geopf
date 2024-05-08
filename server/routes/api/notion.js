@@ -21,7 +21,7 @@ router.get('/mainArticle', async (req, res) => {
   //   activeUser: '1f9f6762-ff1f-4a48-a4e9-5aae363e99d7',
   //   authToken: 'v02%3Auser_token_or_cookies%3Ay8gjKe-QA-X5BLICHss81rznkgpQBrOCZUJqi1nHHaHYtuuhJxjNx1O1evzs9_5hxCJGPY5Jd-gYgIlXUaliOzj-2nnV9fyqJTBxNGwV6PywYZInyUttn1GRVPfLkJGrQC9k',
   // });
-
+  // 분리해서 두번부르는게 맞긴 함..
   let mariaConn;
   let result;
    try {
@@ -32,8 +32,13 @@ router.get('/mainArticle', async (req, res) => {
 
      if (mariaTest.length >= 0) {
       let query = `SELECT IFNULL(VISITOR,0) AS VISITOR
-                        , IFNULL(SUM(VISITOR),0) AS TOTAL_VISITOR
+                        , GV.TOTAL_VISITOR
                      FROM GEO_VISITOR
+                     JOIN (
+                          SELECT IFNULL(SUM(VISITOR),0) AS TOTAL_VISITOR
+                            FROM GEO_VISITOR
+                        ) AS GV
+                       ON 1 = 1 
                     WHERE 1 = 1
                       AND DATE(COUNT_DATE) = CURDATE();`;
       const visitor = await mariaConn.query(query);
