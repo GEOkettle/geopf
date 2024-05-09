@@ -126,7 +126,6 @@ app.get('/visitCheck', async (req, res) => {
                             , ?);`;
         const values=[currentDate]
         const insCnt = await mariaConn.query(query, values);
-        console.log(insCnt);
         
       } else { 
         query = `UPDATE GEO_VISITOR
@@ -136,7 +135,6 @@ app.get('/visitCheck', async (req, res) => {
                           AND COUNT_DATE = CURDATE()`
         const values = [currentDate];
         const updCnt = await mariaConn.query(query, values);
-        console.log(updCnt);
       }
     } catch (e) {
       console.error(`MariaDB error occurred: ${e}`);
@@ -217,5 +215,5 @@ app
     console.log('This app is running at http://localhost:' + SERVER_PORT);
   })
   .on('error', (err) => {
-    console.log('Something went wrong' + err.message);
+    console.error('Something went wrong' + err.message);
   });

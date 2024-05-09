@@ -42,8 +42,6 @@ router.get('/mainArticle', async (req, res) => {
                                   ), 0) AS TOTAL_VISITOR;`;
       const visitor = await mariaConn.query(query);
        result = visitor[0]
-       console.log(visitor)
-       console.log(result)
      } else {
        throw new Error('디비 접속에 실패하였습니다.');
      }
