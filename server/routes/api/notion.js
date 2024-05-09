@@ -28,21 +28,22 @@ router.get('/mainArticle', async (req, res) => {
      mariaConn = await mariadbPool.getConnection();
      mariaConn.release();
 
-     const mariaTest = await mariaConn.query('SELECT * FROM geo_test');
-
+     const mariaTest = await mariaConn.query('SELECT * FROM GEO_VISITOR');
      if (mariaTest.length >= 0) {
-      let query = `SELECT IFNULL(VISITOR,0) AS VISITOR
-                        , GV.TOTAL_VISITOR
-                     FROM GEO_VISITOR
-                     JOIN (
-                          SELECT IFNULL(SUM(VISITOR),0) AS TOTAL_VISITOR
-                            FROM GEO_VISITOR
-                        ) AS GV
-                       ON 1 = 1 
-                    WHERE 1 = 1
-                      AND DATE(COUNT_DATE) = CURDATE();`;
+      let query = `SELECT IFNULL(
+			                            (SELECT VISITOR
+                                     FROM GEO_VISITOR 
+			                              WHERE 1 = 1
+			                                AND DATE(COUNT_DATE)  = CURDATE()
+                                  ), 0) AS VISITOR
+                        , IFNULL(
+                                  (SELECT SUM(VISITOR)
+                                     FROM GEO_VISITOR 
+                                  ), 0) AS TOTAL_VISITOR;`;
       const visitor = await mariaConn.query(query);
-      result = visitor[0]
+       result = visitor[0]
+       console.log(visitor)
+       console.log(result)
      } else {
        throw new Error('디비 접속에 실패하였습니다.');
      }
@@ -53,7 +54,6 @@ router.get('/mainArticle', async (req, res) => {
   const notion = new NotionAPI();
   //https://furtive-lemming-021.notion.site/GEO-s-portfolio-83fca179f8314fd784e541e3368df6a5?pvs=4
   const recordMap = await notion.getPage('83fca179f8314fd784e541e3368df6a5');
-  console.log(result)
   result.recordMap = recordMap
   return res.status(200).json({ result, status: 'success' });
 });

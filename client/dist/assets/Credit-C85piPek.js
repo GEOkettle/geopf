@@ -1,8 +1,8 @@
-import{r as a,b as l,i as s,j as r,u as t}from"./index-DCtdcHiO.js";import{N as d}from"./styles-CvIv5i5o.js";import"./Frame-BiSuJw9I.js";const f=()=>{const[o,c]=a.useState(null),{inApp:n}=l();return a.useEffect(()=>{n&&s.get("/notion/contact").then(e=>{const i=e.data.recordMap;c(i)}).catch(e=>console.error(e))},[n]),r.jsx(r.Fragment,{children:r.jsx(p,{children:r.jsx(x,{children:o?r.jsx(d,{disableHeader:!0,darkMode:!0,recordMap:o,fullPage:!0}):r.jsx("div",{style:{height:"100%",display:"flex",justifyContent:"center",alignItems:"center"},children:r.jsx(u,{})})})})})},p=t.div`
+import{r as i,b as p,i as g,j as r,u as l}from"./index-Cx-50V-S.js";import{N as u}from"./styles-CG8z1Wl-.js";import{C as x}from"./code-SUR5uq-b.js";import"./Frame-4alx4k1p.js";const j=()=>{const[a,d]=i.useState(null),{inApp:s,isDarkMode:c}=p();return i.useEffect(()=>{s&&g.get("/notion/credit").then(e=>{const o=e.data.recordMap;d(o)}).catch(e=>console.error(e))},[s]),i.useEffect(()=>{setTimeout(()=>{const e=document.getElementsByClassName("notion-page"),o=document.getElementsByClassName("notion-page-scroller");if(e&&o){let t,n;for(t=0;t<e.length;t++)c?e[t].style.background=" rgba(23, 23, 32,0.4)":e[t].style.background="none";for(n=0;n<o.length;n++)c?o[n].style.background="rgba(23, 23, 32,0.4)":o[n].style.background="none"}},500)}),r.jsx(r.Fragment,{children:r.jsx(b,{children:r.jsx(f,{children:a?r.jsx(u,{components:{Code:x},disableHeader:!0,darkMode:!!c,recordMap:a,fullPage:!0}):r.jsx("div",{style:{height:"100%",display:"flex",justifyContent:"center",alignItems:"center"},children:r.jsx(h,{})})})})})},b=l.div`
   display: flex;
   height: 90%;
   color: white;
-`,x=t.div`
+`,f=l.div`
   width: 100%;
   padding: 2px;
   overflow-y: scroll;
@@ -16,10 +16,10 @@ import{r as a,b as l,i as s,j as r,u as t}from"./index-DCtdcHiO.js";import{N as 
     border-radius: 5px;
     cursor: pointer;
   }
-`,u=t.div`
+`,h=l.div`
   width: 80px;
   height: 40px;
-  color: rgba(10, 201, 74, 0.7);
+  color: ${a=>a.theme.batteryColor};
   border: 2px solid currentColor;
   border-right-color: transparent;
   padding: 3px;
@@ -42,4 +42,4 @@ import{r as a,b as l,i as s,j as r,u as t}from"./index-DCtdcHiO.js";import{N as 
       background-size: 120%;
     }
   }
-`;export{f as default};
+`;export{j as default};
