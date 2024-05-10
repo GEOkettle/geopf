@@ -1,8 +1,8 @@
-import{r as i,b as p,i as g,j as r,u as l}from"./index-oyUapwRN.js";import{N as u}from"./styles-_pxTHYRr.js";import{C as x}from"./code-C3LqWz3Y.js";import"./Frame-CtCmfQWz.js";const j=()=>{const[a,d]=i.useState(null),{inApp:s,isDarkMode:c}=p();return i.useEffect(()=>{s&&g.get("/notion/credit").then(e=>{const o=e.data.recordMap;d(o)}).catch(e=>console.error(e))},[s]),i.useEffect(()=>{setTimeout(()=>{const e=document.getElementsByClassName("notion-page"),o=document.getElementsByClassName("notion-page-scroller");if(e&&o){let t,n;for(t=0;t<e.length;t++)c?e[t].style.background=" rgba(23, 23, 32,0.4)":e[t].style.background="none";for(n=0;n<o.length;n++)c?o[n].style.background="rgba(23, 23, 32,0.4)":o[n].style.background="none"}},500)}),r.jsx(r.Fragment,{children:r.jsx(b,{children:r.jsx(f,{children:a?r.jsx(u,{components:{Code:x},disableHeader:!0,darkMode:!!c,recordMap:a,fullPage:!0}):r.jsx("div",{style:{height:"100%",display:"flex",justifyContent:"center",alignItems:"center"},children:r.jsx(h,{})})})})})},b=l.div`
+import{r as l,b as p,i as g,j as t,u as i}from"./index-szJCYQlh.js";import{N as u}from"./styles-CP19pjxf.js";import"./Frame-xkKwMfUq.js";const y=()=>{const[a,d]=l.useState(null),{inApp:s,isDarkMode:c}=p();return l.useEffect(()=>{s&&g.get("/notion/contact").then(e=>{const r=e.data.recordMap;d(r)}).catch(e=>console.error(e))},[s]),l.useEffect(()=>{setTimeout(()=>{const e=document.getElementsByClassName("notion-page"),r=document.getElementsByClassName("notion-page-scroller");if(e&&r){let o,n;for(o=0;o<e.length;o++)c?e[o].style.background=" rgba(23, 23, 32,0.4)":e[o].style.background="none";for(n=0;n<r.length;n++)c?r[n].style.background="rgba(23, 23, 32,0.4)":r[n].style.background="none"}},500)}),t.jsx(t.Fragment,{children:t.jsx(x,{children:t.jsx(b,{children:a?t.jsx(u,{disableHeader:!0,darkMode:!!c,recordMap:a,fullPage:!0}):t.jsx("div",{style:{height:"100%",display:"flex",justifyContent:"center",alignItems:"center"},children:t.jsx(f,{})})})})})},x=i.div`
   display: flex;
   height: 90%;
   color: white;
-`,f=l.div`
+`,b=i.div`
   width: 100%;
   padding: 2px;
   overflow-y: scroll;
@@ -16,7 +16,7 @@ import{r as i,b as p,i as g,j as r,u as l}from"./index-oyUapwRN.js";import{N as 
     border-radius: 5px;
     cursor: pointer;
   }
-`,h=l.div`
+`,f=i.div`
   width: 80px;
   height: 40px;
   color: ${a=>a.theme.batteryColor};
@@ -42,4 +42,4 @@ import{r as i,b as p,i as g,j as r,u as l}from"./index-oyUapwRN.js";import{N as 
       background-size: 120%;
     }
   }
-`;export{j as default};
+`;export{y as default};
