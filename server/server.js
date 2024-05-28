@@ -9,9 +9,9 @@ import path from 'path';
 import cookieParser from "cookie-parser"; // cookie-parser 모듈 import
 import moment from 'moment';
 dotenv.config(); // environment variable
-const { DEV_ADDR, PRD_ADDR,PRD_ADDR3, SERVER_PORT, NODE_ENV, MARIA_HOST, MARIA_PORT, MARIA_DB, MARIA_USER, MARIA_PW, PG_HOST, PG_PORT, PG_DB, PG_SCHEMA, PG_USER, PG_PW } = process.env;
+const { DEV_ADDR, PRD_ADDR, SERVER_PORT, NODE_ENV, MARIA_HOST, MARIA_PORT, MARIA_DB, MARIA_USER, MARIA_PW, PG_HOST, PG_PORT, PG_DB, PG_SCHEMA, PG_USER, PG_PW } = process.env;
 //환경마다 다른거쓸수 있도록 조절하자.
-const whitelist = [`${process.env.PRD_ADDR}`, `${process.env.PRD_ADDR2}`, `${process.env.DEV_ADDR}`, `${PRD_ADDR3}`];
+const whitelist = [`${PRD_ADDR}`,  `${DEV_ADDR}`];
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin) {
