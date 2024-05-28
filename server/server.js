@@ -57,7 +57,7 @@ const postgresPool = new Pool({
 });
 
 
-app.get('/', async (req, res) => {
+app.get('/api', async (req, res) => {
   let mariaConn;
   let pgConn;
   try {
@@ -81,7 +81,7 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.get('/visitCheck', async (req, res) => { 
+app.get('/api/visitCheck', async (req, res) => { 
 
   let mariaConn;
   const cookies = req.cookies
@@ -163,14 +163,14 @@ app.get('/visitCheck', async (req, res) => {
   res.status(200).send(result)
 })
 
-app.get('/cookieCheck', async (req, res) => {
+app.get('/api/cookieCheck', async (req, res) => {
   const cookies = req.cookies;
   let result = [{visited: false}];
   if (cookies && cookies['geo_visited']) result[0].visited = true;   
   res.status(200).send(result);
 })
 
-app.use('/notion', notion);
+app.use('/api/notion', notion);
 //A
 if (process.env.NODE_ENV === 'prd') {
   // Set static folder
