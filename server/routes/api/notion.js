@@ -81,9 +81,7 @@ router.post('/getPost', async (req, res) => {
 
   const notion = new NotionAPI();
   const postId = req.body.postId;
-  console.log(postId)
   const recordMap = await notion.getPage(postId);
-  console.log(recordMap)
   return res.json({ recordMap, status: 'success' });
 });
 

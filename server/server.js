@@ -29,7 +29,8 @@ const corsOptions = {
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content_Type', 'application/json'],
+  allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
@@ -181,34 +182,7 @@ if (process.env.NODE_ENV === 'prd') {
     res.sendFile(path.resolve(__dirname, '../', 'client', 'dist', 'index.html'));
   });
 }
-//  작업할 라우터들
-//const aPage = require('./routes/api/a)
-// app.use('/a', aPage);
-// 간단한거는 걍 이렇게 처리
-// app.get('/b', (req, res) => {
-//   res.send('A 페이지입니다.');
-// });
-// Serve static assets if in production
 
-//B
-// // 상위에 명시된 경로가 아닌 경로는 다 아래로 탐
-// // 404 오류 핸들링
-// app.use((req, res, next) => {
-//   const error = new Error('요청한 페이지를 찾을 수 없습니다.');
-//   error.status = 404;
-//   next(error);
-// });
-
-// // 오류 처리 미들웨어
-// app.use((err, req, res, next) => {
-//   // 클라이언트 오류인 경우
-//   if (err.status >= 400 && err.status < 500) {
-//     res.status(err.status).send(err.message || '잘못된 요청입니다.');
-//   } else {
-//     // 서버 오류인 경우
-//     res.status(err.status || 500).send(err.message || '서버 내부 오류');
-//   }
-// });
 
 app
   .listen(SERVER_PORT, () => {
