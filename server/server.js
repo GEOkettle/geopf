@@ -29,7 +29,7 @@ const corsOptions = {
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowHeaders: ['Content_Type','application/json']
+  allowedHeaders: ['Content_Type', 'application/json'],
 };
 
 app.use(cors(corsOptions));
