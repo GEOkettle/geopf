@@ -1,8 +1,8 @@
-import{r as c,b as p,i as u,j as r,u as i}from"./index-dma9vtHQ.js";import{N as g}from"./styles-_BhI6Ypy.js";import{C as x}from"./code-CeXMROTb.js";import"./Frame-DTx6pW3h.js";const j=()=>{const[e,d]=c.useState(null),{inApp:s,isDarkMode:l}=p();return c.useEffect(()=>{s&&u.get("/notion/credit").then(o=>{const t=o.data.recordMap;d(t)}).catch(o=>console.error(o))},[s]),c.useEffect(()=>{setTimeout(()=>{const o=document.getElementsByClassName("notion-page"),t=document.getElementsByClassName("notion-page-scroller");if(o&&t){let n,a;for(n=0;n<o.length;n++)l?o[n].style.background=" rgba(23, 23, 32,0.4)":o[n].style.background="none";for(a=0;a<t.length;a++)l?t[a].style.background="rgba(23, 23, 32,0.4)":t[a].style.background="none"}},500)}),r.jsx(r.Fragment,{children:r.jsx(b,{children:r.jsx(f,{children:e?r.jsx(g,{components:{Code:x},disableHeader:!0,darkMode:!!l,recordMap:e,fullPage:!0}):r.jsx("div",{style:{height:"100%",display:"flex",justifyContent:"center",alignItems:"center"},children:r.jsx(h,{})})})})})},b=i.div`
+import{r as c,b as p,i as u,j as r,u as i}from"./index-SFMLHV75.js";import{N as g}from"./styles-Xifs_919.js";import"./Frame-Ca9JMYao.js";const C=()=>{const[e,d]=c.useState(null),{inApp:s,isDarkMode:l}=p();return c.useEffect(()=>{s&&u.get("/notion/contact").then(o=>{const t=o.data.recordMap;d(t)}).catch(o=>console.error(o))},[s]),c.useEffect(()=>{setTimeout(()=>{const o=document.getElementsByClassName("notion-page"),t=document.getElementsByClassName("notion-page-scroller");if(o&&t){let n,a;for(n=0;n<o.length;n++)l?o[n].style.background=" rgba(23, 23, 32,0.4)":o[n].style.background="none";for(a=0;a<t.length;a++)l?t[a].style.background="rgba(23, 23, 32,0.4)":t[a].style.background="none"}},500)}),r.jsx(r.Fragment,{children:r.jsx(x,{children:r.jsx(b,{children:e?r.jsx(g,{disableHeader:!0,darkMode:!!l,recordMap:e,fullPage:!0}):r.jsx("div",{style:{height:"100%",display:"flex",justifyContent:"center",alignItems:"center"},children:r.jsx(f,{})})})})})},x=i.div`
   display: flex;
   height: 90%;
   color: white;
-`,f=i.div`
+`,b=i.div`
   width: 100%;
   padding: 2px;
   overflow-y: scroll;
@@ -16,7 +16,7 @@ import{r as c,b as p,i as u,j as r,u as i}from"./index-dma9vtHQ.js";import{N as 
     border-radius: 5px;
     cursor: pointer;
   }
-`,h=i.div`
+`,f=i.div`
   width: 80px;
   height: 40px;
   color: ${e=>e.theme.batteryColor};
@@ -42,4 +42,4 @@ import{r as c,b as p,i as u,j as r,u as i}from"./index-dma9vtHQ.js";import{N as 
       background-size: 120%;
     }
   }
-`;export{j as default};
+`;export{C as default};
